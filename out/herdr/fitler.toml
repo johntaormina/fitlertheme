@@ -1,0 +1,26 @@
+# Fitler theme for herdr (https://herdr.dev).
+# generated from palette.json; do not edit
+# Install: copy into ~/.config/herdr/config.toml, or merge the [theme] and
+# [theme.custom] blocks below into your existing config.
+
+[theme]
+name = "terminal"   # neutral base; every palette token is overridden below by Fitler
+auto_switch = false
+
+[theme.custom]
+accent      = "#d3a54c"
+panel_bg    = "#0e0e0f"
+surface0    = "#151517"
+surface1    = "#242428"
+surface_dim = "#080809"
+overlay0    = "#615e58"
+overlay1    = "#a8a49b"
+text        = "#e6e3dc"
+subtext0    = "#a8a49b"
+mauve       = "#9e7aab"
+green       = "#8da261"
+yellow      = "#d3a54c"
+red         = "#c96256"
+blue        = "#668db1"
+teal        = "#72a39f"
+peach       = "#cf8a50"

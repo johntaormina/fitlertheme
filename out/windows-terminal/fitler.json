@@ -1,0 +1,23 @@
+{
+    "name": "Fitler",
+    "background": "#0e0e0f",
+    "foreground": "#e6e3dc",
+    "cursorColor": "#d3a54c",
+    "selectionBackground": "#242428",
+    "black": "#0e0e0f",
+    "red": "#c96256",
+    "green": "#8da261",
+    "yellow": "#d3a54c",
+    "blue": "#668db1",
+    "purple": "#9e7aab",
+    "cyan": "#72a39f",
+    "white": "#e6e3dc",
+    "brightBlack": "#575655",
+    "brightRed": "#d08178",
+    "brightGreen": "#9faf7c",
+    "brightYellow": "#d8b470",
+    "brightBlue": "#83a1bd",
+    "brightPurple": "#b094ba",
+    "brightCyan": "#8cb2af",
+    "brightWhite": "#f3f1ee"
+}

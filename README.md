@@ -112,6 +112,30 @@ any monospace font. No Nerd Font required.
 </details>
 
 <details>
+<summary><b>herdr</b></summary>
+
+```sh
+mkdir -p ~/.config/herdr
+curl -o ~/.config/herdr/fitler.toml \
+  https://raw.githubusercontent.com/johntaormina/fitlertheme/main/out/herdr/fitler.toml
+```
+
+herdr's `config.toml` holds more than theme, so this isn't dropped in as its
+own file — merge the `[theme]` and `[theme.custom]` blocks into your existing
+`~/.config/herdr/config.toml`.
+</details>
+
+<details>
+<summary><b>Windows Terminal</b></summary>
+
+`settings.json` holds more than schemes, so this isn't dropped in as its own
+file either — copy the object from
+[`out/windows-terminal/fitler.json`](out/windows-terminal/fitler.json) into
+the `"schemes"` array in `settings.json` (<kbd>Ctrl</kbd>+<kbd>,</kbd> &rarr;
+open JSON file), then set `"colorScheme": "Fitler"` on a profile.
+</details>
+
+<details>
 <summary><b>All of it, kept in sync</b></summary>
 
 ```sh

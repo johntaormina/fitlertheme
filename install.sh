@@ -29,4 +29,6 @@ then, once:
   tmux      ~/.tmux.conf                source-file ~/.config/tmux/$SLUG.conf
   vscode    cmd+shift+p > Color Theme > Fitler   (restart first)
   zsh       ~/.zshrc                    ZSH_THEME="$SLUG"
+  herdr     ~/.config/herdr/config.toml merge in $SRC/herdr/$SLUG.toml (see README)
+  windows terminal   settings.json      merge in $SRC/windows-terminal/$SLUG.json (see README)
 EOF

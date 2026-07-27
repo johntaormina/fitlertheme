@@ -803,6 +803,79 @@ RPROMPT='${{_fit_dim}}%*${{_fit_rst}}'
     return f"zsh/{p['slug']}.zsh-theme", src
 
 
+def herdr(p):
+    """theme.custom block for herdr (https://herdr.dev) — copy/merge into
+    ~/.config/herdr/config.toml. herdr's config holds more than theme, so
+    unlike ghostty/tmux/zsh this isn't a file to symlink over wholesale."""
+    peach = mix(p["yellow"], p["red"], 0.4)
+    rows = [
+        ("accent", p["accent"]),
+        ("panel_bg", p["bg"]),
+        ("surface0", p["bgEl"]),
+        ("surface1", p["sel"]),
+        ("surface_dim", p["bgAlt"]),
+        # ponytail: overlay0/1 render herdr's inactive tab names directly (src/ui/tabs.rs),
+        # not just gutters/comments like elsewhere — gutter/comment are too dim against
+        # surface0 there, so bump a tier brighter using colors already in the palette.
+        ("overlay0", p["comment"]),
+        ("overlay1", p["dim"]),
+        ("text", p["fg"]),
+        ("subtext0", p["dim"]),
+        ("mauve", p["magenta"]),
+        ("green", p["green"]),
+        ("yellow", p["yellow"]),
+        ("red", p["red"]),
+        ("blue", p["blue"]),
+        ("teal", p["cyan"]),
+        ("peach", peach),
+    ]
+    w = max(len(k) for k, _ in rows)
+    body = "\n".join(f'{k.ljust(w)} = "{v}"' for k, v in rows)
+    src = f"""# {p['name']} theme for herdr (https://herdr.dev).
+# generated from palette.json; do not edit
+# Install: copy into ~/.config/herdr/config.toml, or merge the [theme] and
+# [theme.custom] blocks below into your existing config.
+
+[theme]
+name = "terminal"   # neutral base; every palette token is overridden below by {p['name']}
+auto_switch = false
+
+[theme.custom]
+{body}
+"""
+    return f"herdr/{p['slug']}.toml", src
+
+
+def windows_terminal(p):
+    """Color scheme object for Windows Terminal. settings.json holds more than
+    schemes, so like herdr this isn't a file to drop in wholesale — add the
+    object to the "schemes" array, then set "colorScheme" on a profile."""
+    scheme = {
+        "name": p["name"],
+        "background": p["bg"],
+        "foreground": p["fg"],
+        "cursorColor": p["accent"],
+        "selectionBackground": p["sel"],
+        "black": p["black"],
+        "red": p["red"],
+        "green": p["green"],
+        "yellow": p["yellow"],
+        "blue": p["blue"],
+        "purple": p["magenta"],
+        "cyan": p["cyan"],
+        "white": p["white"],
+        "brightBlack": p["brBlack"],
+        "brightRed": p["br_red"],
+        "brightGreen": p["br_green"],
+        "brightYellow": p["br_yellow"],
+        "brightBlue": p["br_blue"],
+        "brightPurple": p["br_magenta"],
+        "brightCyan": p["br_cyan"],
+        "brightWhite": p["brWhite"],
+    }
+    return f"windows-terminal/{p['slug']}.json", json.dumps(scheme, indent=4) + "\n"
+
+
 def preview(p):
     """Source for the repo hero image. `./shot.sh` renders it to assets/preview.png."""
     code = [
@@ -1052,6 +1125,30 @@ any monospace font. No Nerd Font required.
 </details>
 
 <details>
+<summary><b>herdr</b></summary>
+
+```sh
+mkdir -p ~/.config/herdr
+curl -o ~/.config/herdr/{slug}.toml \\
+  https://raw.githubusercontent.com/{repo}/main/out/herdr/{slug}.toml
+```
+
+herdr's `config.toml` holds more than theme, so this isn't dropped in as its
+own file — merge the `[theme]` and `[theme.custom]` blocks into your existing
+`~/.config/herdr/config.toml`.
+</details>
+
+<details>
+<summary><b>Windows Terminal</b></summary>
+
+`settings.json` holds more than schemes, so this isn't dropped in as its own
+file either — copy the object from
+[`out/windows-terminal/{slug}.json`](out/windows-terminal/{slug}.json) into
+the `"schemes"` array in `settings.json` (<kbd>Ctrl</kbd>+<kbd>,</kbd> &rarr;
+open JSON file), then set `"colorScheme": "{p['name']}"` on a profile.
+</details>
+
+<details>
 <summary><b>All of it, kept in sync</b></summary>
 
 ```sh
@@ -1111,7 +1208,7 @@ MIT
 """
 
 
-TARGETS = [ghostty, nvim, lualine, vscode, tmux, zsh, preview, readme]
+TARGETS = [ghostty, nvim, lualine, vscode, tmux, zsh, herdr, windows_terminal, preview, readme]
 
 
 # ---------------------------------------------------------------------- main
