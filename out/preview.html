@@ -1,0 +1,54 @@
+<meta charset="utf-8">
+<title>Fitler</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:640px; background:#080809;
+    font-family:"JetBrains Mono", ui-monospace, monospace;
+    display:flex; flex-direction:column; gap:20px; padding:34px 38px;
+    -webkit-font-smoothing:antialiased; font-feature-settings:"liga" 0, "calt" 0; }
+  .hdr { display:flex; align-items:baseline; gap:13px; }
+  .hdr h1 { color:#f3f1ee; font-size:23px; font-weight:600; letter-spacing:-.02em; }
+  .hdr .dot { color:#d3a54c; font-size:15px; }
+  .hdr .sub { color:#615e58; font-size:12.5px; }
+  .win { flex:1; background:#0e0e0f; border:1px solid #242428; border-radius:7px;
+    overflow:hidden; display:flex; flex-direction:column; }
+  .bar { display:flex; align-items:center; gap:8px; padding:10px 14px;
+    background:#151517; border-bottom:1px solid #242428; }
+  .bar b { width:10px; height:10px; border-radius:50%; display:block; }
+  .bar em { margin-left:10px; color:#a8a49b; font-size:11.5px; font-style:normal; }
+  .code { flex:1; padding:16px 0; font-size:14.5px; line-height:1.74; }
+  .ln { display:block; padding:0 20px; white-space:pre; color:#e6e3dc; }
+  .ln.cur { background:#161618; }
+  .ln i { display:inline-block; width:24px; text-align:right; margin-right:18px;
+    color:#3f3d39; font-style:normal; }
+  .st { display:flex; font-size:11.5px; background:#080809; }
+  .st span { padding:5px 13px; }
+  .st .m { background:#668db1; color:#0e0e0f; font-weight:600; }
+  .st .g { background:#242428; color:#e6e3dc; }
+  .st .fill { flex:1; color:#a8a49b; }
+  .st .p { background:#d3a54c; color:#0e0e0f; font-weight:600; }
+  .strip { display:flex; gap:10px; }
+  .sw { flex:1; display:flex; align-items:center; gap:8px; font-size:11px;
+    color:#615e58; }
+  .sw i { width:20px; height:20px; border-radius:4px; display:block; }
+  .c { color:#615e58; font-style:italic; }
+  .k { color:#9e7aab; } .f { color:#668db1; } .s { color:#8da261; }
+  .n { color:#d3a54c; } .t { color:#72a39f; } .b { color:#c96256; }
+  .o { color:#a8a49b; } .v { color:#e6e3dc; } .pr { color:#acbcc9; }
+</style>
+<div class="hdr">
+  <h1>Fitler</h1><span class="dot">&#9679;</span>
+  <span class="sub">#e6e3dc on #0e0e0f &nbsp;&middot;&nbsp; 15.1:1</span>
+</div>
+<div class="win">
+  <div class="bar">
+    <b style="background:#c96256"></b><b style="background:#d3a54c"></b>
+    <b style="background:#8da261"></b><em>src/lib/auth.ts</em>
+  </div>
+  <div class="code"><span class="ln"><i>1</i><span class="c">// verify a session token against the rotating key set</span></span><span class="ln"><i>2</i> </span><span class="ln"><i>3</i><span class="k">export async function </span><span class="f">verify</span><span class="o">(</span><span class="v">token</span><span class="o">: </span><span class="t">string</span><span class="o">): </span><span class="t">Promise</span><span class="o">&lt;</span><span class="t">Claims</span><span class="o">&gt; {</span></span><span class="ln"><i>4</i><span class="o">  </span><span class="k">const </span><span class="v">keys</span><span class="o"> = </span><span class="k">await </span><span class="f">loadKeys</span><span class="o">(</span><span class="n">3600</span><span class="o">)</span></span><span class="ln"><i>5</i><span class="o">  </span><span class="k">if </span><span class="o">(!</span><span class="v">keys</span><span class="o">.</span><span class="pr">length</span><span class="o">) </span><span class="k">throw new </span><span class="t">AuthError</span><span class="o">(</span><span class="s">&quot;no signing keys&quot;</span><span class="o">)</span></span><span class="ln"><i>6</i> </span><span class="ln"><i>7</i><span class="o">  </span><span class="k">for </span><span class="o">(</span><span class="k">const </span><span class="v">key</span><span class="k"> of </span><span class="v">keys</span><span class="o">) {</span></span><span class="ln"><i>8</i><span class="o">    </span><span class="k">const </span><span class="v">claims</span><span class="o"> = </span><span class="f">decode</span><span class="o">(</span><span class="v">token</span><span class="o">, </span><span class="v">key</span><span class="o">)</span></span><span class="ln cur"><i>9</i><span class="o">    </span><span class="k">if </span><span class="o">(</span><span class="v">claims</span><span class="o"> &amp;&amp; </span><span class="v">claims</span><span class="o">.</span><span class="pr">exp</span><span class="o"> &gt; </span><span class="b">Date</span><span class="o">.</span><span class="f">now</span><span class="o">()) </span><span class="k">return </span><span class="v">claims</span></span><span class="ln"><i>10</i><span class="o">  }</span></span><span class="ln"><i>11</i> </span><span class="ln"><i>12</i><span class="c">  // TODO: emit a metric before we give up</span></span><span class="ln"><i>13</i><span class="o">  </span><span class="k">throw new </span><span class="t">AuthError</span><span class="o">(</span><span class="s">`rejected by </span><span class="o">${</span><span class="v">keys</span><span class="o">.</span><span class="pr">length</span><span class="o">}</span><span class="s"> keys`</span><span class="o">)</span></span><span class="ln"><i>14</i><span class="o">}</span></span></div>
+  <div class="st">
+    <span class="m">NORMAL</span><span class="g">main +2</span>
+    <span class="fill">&nbsp;src/lib/auth.ts</span><span class="g">17:24</span><span class="p">42%</span>
+  </div>
+</div>
+<div class="strip"><span class="sw"><i style="background:#c96256"></i>#c96256</span><span class="sw"><i style="background:#8da261"></i>#8da261</span><span class="sw"><i style="background:#d3a54c"></i>#d3a54c</span><span class="sw"><i style="background:#668db1"></i>#668db1</span><span class="sw"><i style="background:#9e7aab"></i>#9e7aab</span><span class="sw"><i style="background:#72a39f"></i>#72a39f</span><span class="sw"><i style="background:#e6e3dc"></i>#e6e3dc</span><span class="sw"><i style="background:#615e58"></i>#615e58</span></div>

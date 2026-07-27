@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate
+        run: python3 build.py
+
+      # The one failure mode worth catching: someone edited out/ by hand, or
+      # changed palette.json without rebuilding. Both show up as a dirty tree.
+      - name: Committed output matches palette.json
+        run: |
+          if ! git diff --quiet -- README.md out/; then
+            echo "::error::out/ is stale. Run 'python3 build.py' and commit."
+            git diff --stat -- README.md out/
+            exit 1
+          fi
+
+      - name: Lua parses
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lua5.1
+          luac5.1 -p out/nvim/colors/fitler.lua
+          luac5.1 -p out/nvim/lua/lualine/themes/fitler.lua
+
+      - name: JSON parses
+        run: |
+          python3 -c "import json;[json.load(open(f)) for f in ['out/vscode/package.json','out/vscode/themes/fitler-color-theme.json']]"
+
+      - name: Prompt parses
+        run: |
+          sudo apt-get install -y -qq zsh
+          zsh -n out/zsh/fitler.zsh-theme
+
+      - name: Contrast floor
+        run: |
+          python3 -c "
+          import json, build
+          p = build.resolve(json.load(open('palette.json')))
+          for a, b, floor in [('fg','bg',9.0), ('dim','bg',4.5), ('comment','bg',2.5)]:
+              r = build.contrast(p[a], p[b])
+              assert r >= floor, f'{a} on {b} is {r:.1f}:1, below {floor}'
+              print(f'{a:8} on {b:3} {r:5.1f}:1  ok')
+          "

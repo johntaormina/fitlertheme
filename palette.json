@@ -1,0 +1,23 @@
+{
+  "name": "Fitler",
+  "slug": "fitler",
+  "author": "jt",
+  "repo": "johntaormina/fitlertheme",
+  "about": "Named for Fitler Square, Philadelphia. Paper-white text on warm charcoal; every hue desaturated until it stops shouting.",
+  "bg": "#0e0e0f",
+  "bgAlt": "#080809",
+  "bgEl": "#151517",
+  "sel": "#242428",
+  "line": "#161618",
+  "fg": "#e6e3dc",
+  "dim": "#a8a49b",
+  "comment": "#615e58",
+  "gutter": "#3f3d39",
+  "red": "#c96256",
+  "green": "#8da261",
+  "yellow": "#d3a54c",
+  "blue": "#668db1",
+  "magenta": "#9e7aab",
+  "cyan": "#72a39f",
+  "accent": "#d3a54c"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "fitler-theme",
+  "displayName": "Fitler",
+  "description": "Named for Fitler Square, Philadelphia. Paper-white text on warm charcoal; every hue desaturated until it stops shouting.",
+  "version": "1.0.0",
+  "publisher": "jt",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Fitler",
+        "uiTheme": "vs-dark",
+        "path": "./themes/fitler-color-theme.json"
+      }
+    ]
+  }
+}

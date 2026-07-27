@@ -1,0 +1,29 @@
+# Fitler — Named for Fitler Square, Philadelphia. Paper-white text on warm charcoal; every hue desaturated until it stops shouting.
+# generated from palette.json; do not edit
+
+background = #0e0e0f
+foreground = #e6e3dc
+cursor-color = #d3a54c
+cursor-text = #0e0e0f
+selection-background = #242428
+selection-foreground = #f3f1ee
+
+# normal
+palette = 0=#0e0e0f
+palette = 1=#c96256
+palette = 2=#8da261
+palette = 3=#d3a54c
+palette = 4=#668db1
+palette = 5=#9e7aab
+palette = 6=#72a39f
+palette = 7=#e6e3dc
+
+# bright
+palette = 8=#575655
+palette = 9=#d08178
+palette = 10=#9faf7c
+palette = 11=#d8b470
+palette = 12=#83a1bd
+palette = 13=#b094ba
+palette = 14=#8cb2af
+palette = 15=#f3f1ee
