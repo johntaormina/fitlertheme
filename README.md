@@ -1,7 +1,7 @@
 <h1 align="center">Fitler</h1>
 
 <p align="center">
-  Named for Fitler Square, Philadelphia. Paper-white text on warm charcoal; every hue desaturated until it stops shouting.<br>
+  Named for Fitler Square. Paper-white text on warm charcoal; every hue desaturated until it stops shouting.<br>
   <sub>One palette. Every tool. Generated, not copy-pasted.</sub>
 </p>
 
@@ -127,23 +127,25 @@ Absolute symlinks, so re-run `./install.sh` if you ever move the folder.
 
 ## Palette
 
-| `bg` | `#0e0e0f` |
-| `bgAlt` | `#080809` |
-| `bgEl` | `#151517` |
-| `sel` | `#242428` |
-| `line` | `#161618` |
-| `fg` | `#e6e3dc` |
-| `fgBright` | `#f3f1ee` |
-| `dim` | `#a8a49b` |
-| `comment` | `#615e58` |
-| `gutter` | `#3f3d39` |
-| `red` | `#c96256` |
-| `green` | `#8da261` |
-| `yellow` | `#d3a54c` |
-| `blue` | `#668db1` |
-| `magenta` | `#9e7aab` |
-| `cyan` | `#72a39f` |
-| `accent` | `#d3a54c` |
+| key | hex | role |
+| --- | --- | --- |
+| `bg` | `#0e0e0f` | editor background |
+| `bgAlt` | `#080809` | statusline, sidebar, tab bar |
+| `bgEl` | `#151517` | floats, popups, completion menu |
+| `sel` | `#242428` | selection, borders |
+| `line` | `#161618` | cursorline |
+| `fg` | `#e6e3dc` | body text |
+| `fgBright` | `#f3f1ee` | emphasis, selected item |
+| `dim` | `#a8a49b` | operators, punctuation |
+| `comment` | `#615e58` | comments |
+| `gutter` | `#3f3d39` | line numbers, whitespace |
+| `red` | `#c96256` | errors, booleans, builtins |
+| `green` | `#8da261` | strings, diff add |
+| `yellow` | `#d3a54c` | numbers, constants |
+| `blue` | `#668db1` | functions, diff change |
+| `magenta` | `#9e7aab` | keywords |
+| `cyan` | `#72a39f` | types, tags, escapes |
+| `accent` | `#d3a54c` | cursor, matched paren, prompt |
 
 Those are the only colors anyone chose. The other ~50 — bright ANSI, diff
 grounds, diagnostic tints, syntax roles — are derived in `build.py`, so a hue

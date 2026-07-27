@@ -781,19 +781,15 @@ def zsh(p):
 # ZSH_THEME="{p['slug']}" in ~/.zshrc, with this file at
 # ~/.oh-my-zsh/custom/themes/{p['slug']}.zsh-theme
 
-# ponytail: truecolor SGR inline. Works in ghostty; falls back to nothing weird
-# elsewhere. Switch to %F{{n}} 256-color codes if you ever use a dumb terminal.
-_f() {{ print -n "%{{\\e[38;2;$1;$2;$3m%}}"; }}
-_b() {{ print -n "%{{\\e[48;2;$1;$2;$3m%}}"; }}
-_r="%{{\\e[0m%}}"
-
-_fit_dir="%{{\\e[38;2;{';'.join(str(v) for v in hex2rgb(p['blue']))}m%}}"
-_fit_git="%{{\\e[38;2;{';'.join(str(v) for v in hex2rgb(p['magenta']))}m%}}"
-_fit_ok="%{{\\e[38;2;{';'.join(str(v) for v in hex2rgb(p['green']))}m%}}"
-_fit_err="%{{\\e[38;2;{';'.join(str(v) for v in hex2rgb(p['red']))}m%}}"
-_fit_dim="%{{\\e[38;2;{';'.join(str(v) for v in hex2rgb(p['comment']))}m%}}"
-_fit_acc="%{{\\e[38;2;{';'.join(str(v) for v in hex2rgb(p['accent']))}m%}}"
-_fit_rst="%{{\\e[0m%}}"
+# ponytail: native %F{{#hex}} truecolor (zsh >= 5.7). zsh emits the SGR and does
+# the zero-width accounting itself, so no raw \\e or %{{..%}} wrapping.
+_fit_dir="%F{{{p['blue']}}}"
+_fit_git="%F{{{p['magenta']}}}"
+_fit_ok="%F{{{p['green']}}}"
+_fit_err="%F{{{p['red']}}}"
+_fit_dim="%F{{{p['comment']}}}"
+_fit_acc="%F{{{p['accent']}}}"
+_fit_rst="%f"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="${{_fit_git}}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="${{_fit_rst}}"
@@ -914,10 +910,31 @@ def readme(p):
         ("accent on background", contrast(p["accent"], p["bg"])),
     ]
     rows = "\n".join(f"| {n} | {r:.1f}:1 |" for n, r in checks)
+
+    roles = [
+        ("bg", "editor background"),
+        ("bgAlt", "statusline, sidebar, tab bar"),
+        ("bgEl", "floats, popups, completion menu"),
+        ("sel", "selection, borders"),
+        ("line", "cursorline"),
+        ("fg", "body text"),
+        ("fgBright", "emphasis, selected item"),
+        ("dim", "operators, punctuation"),
+        ("comment", "comments"),
+        ("gutter", "line numbers, whitespace"),
+        ("red", "errors, booleans, builtins"),
+        ("green", "strings, diff add"),
+        ("yellow", "numbers, constants"),
+        ("blue", "functions, diff change"),
+        ("magenta", "keywords"),
+        ("cyan", "types, tags, escapes"),
+        ("accent", "cursor, matched paren, prompt"),
+    ]
+    # The header + separator rows are what make GitHub parse this as a table.
+    # Without them the whole thing renders as literal pipes.
     swatch = "\n".join(
-        f"| `{k}` | `{p[k]}` |" for k in
-        ("bg", "bgAlt", "bgEl", "sel", "line", "fg", "fgBright", "dim", "comment",
-         "gutter", "red", "green", "yellow", "blue", "magenta", "cyan", "accent")
+        ["| key | hex | role |", "| --- | --- | --- |"]
+        + [f"| `{k}` | `{p[k]}` | {role} |" for k, role in roles]
     )
     slug = p["slug"]
     repo = p["repo"]
