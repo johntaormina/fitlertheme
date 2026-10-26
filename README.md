@@ -136,6 +136,18 @@ open JSON file), then set `"colorScheme": "Fitler"` on a profile.
 </details>
 
 <details>
+<summary><b>Warp</b></summary>
+
+```sh
+mkdir -p ~/.warp/themes
+curl -o ~/.warp/themes/fitler.yaml \
+  https://raw.githubusercontent.com/johntaormina/fitlertheme/main/out/warp/fitler.yaml
+```
+
+Then pick it under Settings &rarr; Appearance &rarr; Themes.
+</details>
+
+<details>
 <summary><b>All of it, kept in sync</b></summary>
 
 ```sh

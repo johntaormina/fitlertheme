@@ -1,0 +1,26 @@
+# Fitler theme for Warp.
+name: Fitler
+accent: '#d3a54c'
+cursor: '#d3a54c'
+background: '#0e0e0f'
+foreground: '#e6e3dc'
+details: darker
+terminal_colors:
+  normal:
+    black: '#0e0e0f'
+    red: '#c96256'
+    green: '#8da261'
+    yellow: '#d3a54c'
+    blue: '#668db1'
+    magenta: '#9e7aab'
+    cyan: '#72a39f'
+    white: '#e6e3dc'
+  bright:
+    black: '#575655'
+    red: '#d08178'
+    green: '#9faf7c'
+    yellow: '#d8b470'
+    blue: '#83a1bd'
+    magenta: '#b094ba'
+    cyan: '#8cb2af'
+    white: '#f3f1ee'

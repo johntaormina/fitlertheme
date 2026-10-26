@@ -876,6 +876,29 @@ def windows_terminal(p):
     return f"windows-terminal/{p['slug']}.json", json.dumps(scheme, indent=4) + "\n"
 
 
+def warp(p):
+    """Warp theme yaml. Drop into ~/.warp/themes/ and pick it in Settings > Appearance > Themes."""
+    names = ("black", "red", "green", "yellow", "blue", "magenta", "cyan", "white")
+    normal = "\n".join(f"    {n}: '{p[n]}'" for n in names)
+    bright = "\n".join(
+        f"    {n}: '{p['brBlack'] if n == 'black' else p['brWhite'] if n == 'white' else p['br_' + n]}'"
+        for n in names)
+    src = f"""# {p['name']} theme for Warp.
+name: {p['name']}
+accent: '{p['accent']}'
+cursor: '{p['accent']}'
+background: '{p['bg']}'
+foreground: '{p['fg']}'
+details: darker
+terminal_colors:
+  normal:
+{normal}
+  bright:
+{bright}
+"""
+    return f"warp/{p['slug']}.yaml", src
+
+
 def preview(p):
     """Source for the repo hero image. `./shot.sh` renders it to assets/preview.png."""
     code = [
@@ -1149,6 +1172,18 @@ open JSON file), then set `"colorScheme": "{p['name']}"` on a profile.
 </details>
 
 <details>
+<summary><b>Warp</b></summary>
+
+```sh
+mkdir -p ~/.warp/themes
+curl -o ~/.warp/themes/{slug}.yaml \\
+  https://raw.githubusercontent.com/{repo}/main/out/warp/{slug}.yaml
+```
+
+Then pick it under Settings &rarr; Appearance &rarr; Themes.
+</details>
+
+<details>
 <summary><b>All of it, kept in sync</b></summary>
 
 ```sh
@@ -1208,7 +1243,7 @@ MIT
 """
 
 
-TARGETS = [ghostty, nvim, lualine, vscode, tmux, zsh, herdr, windows_terminal, preview, readme]
+TARGETS = [ghostty, nvim, lualine, vscode, tmux, zsh, herdr, windows_terminal, warp, preview, readme]
 
 
 # ---------------------------------------------------------------------- main
